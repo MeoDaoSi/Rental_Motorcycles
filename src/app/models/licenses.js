@@ -19,6 +19,11 @@ const licenseSchema = new Schema({
         type: Date,
         require: true,
     },
+    info: {
+        type: Schema.ObjectId,
+        ref: 'infos',
+        require: true,
+    }
 }, {
     timestamps: true
 })

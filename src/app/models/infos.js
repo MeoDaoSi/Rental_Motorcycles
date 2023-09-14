@@ -49,6 +49,11 @@ const infosSchema = new Schema({
         require: false,
         trim: true,
         enum: ['M','F','U']
+    },
+    user: {
+        type: Schema.ObjectId,
+        ref: 'users',
+        require: true,
     }
 }, {
     timestamps: true

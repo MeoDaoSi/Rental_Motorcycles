@@ -23,6 +23,16 @@ const motorSchema = new Schema({
         trim: true,
         enum: ['active','inactive']
     },
+    model: {
+        type: Schema.ObjectId,
+        ref: 'models',
+        require: true,
+    },
+    location: {
+        type: Schema.ObjectId,
+        ref: 'locations',
+        require: true,
+    }
 }, {
     timestamps: true
 })

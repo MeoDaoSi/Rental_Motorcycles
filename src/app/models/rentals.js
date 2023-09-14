@@ -29,6 +29,26 @@ const rentalSchema = new Schema({
         trim: true,
         enum: ['pending','approve','reject','complete']
     },
+    motor: {
+        type: Schema.ObjectId,
+        ref: 'motorcycles',
+        require: true,
+    },
+    info: {
+        type: Schema.ObjectId,
+        ref: 'infos',
+        require: true,
+    },
+    user: {
+        type: Schema.ObjectId,
+        ref: 'users',
+        require: true,
+    },
+    receipt: {
+        type: Schema.ObjectId,
+        ref: 'receipts',
+        require: true,
+    }
 }, {
     timestamps: true
 })

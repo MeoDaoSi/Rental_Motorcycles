@@ -11,6 +11,9 @@ const port = process.env.PORT || 3000;
 // config public directory
 app.use(express.static(`${__dirname}/../public`))
 
+// parses the application/json content type
+app.use(express.json())
+
 // connect DB
 const db = require('./db/index');
 db.connect();

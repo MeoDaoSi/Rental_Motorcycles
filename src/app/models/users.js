@@ -6,14 +6,17 @@ const userSchema = new Schema({
         type: String,
         require: true,
         trim: true,
+        minLength: 7,
+        maxLength: 50,
         lowercase: true,
         unique: true
     },
     password: {
         type: String,
         lowercase: true,
+        minLength: 7,
+        maxLength: 50,
         require: true,
-        minlength: 7,
         trim: true,
     },
     role: {
@@ -25,6 +28,6 @@ const userSchema = new Schema({
     timestamps: true
 })
 
-const Users = mongoose.model('users', userSchema)
+const User = mongoose.model('users', userSchema)
 
-module.exports = Users
+module.exports = User

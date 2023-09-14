@@ -2,9 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 // Get Controller
-const { userController, userController_test } = require('../app/controllers/userController');
+const userController = require('../app/controllers/userController');
 
-router.get('/get_all', userController)
-router.get('/test', userController_test)
+router.post('/', userController.user_createOne)
+router.get('/getAll', userController.user_getAll)
+router.get('/get/:id',userController.user_getOne)
+router.patch('/:id',userController.user_editOne)
+router.delete('/:id',userController.user_deleteOne)
 
 module.exports = router;

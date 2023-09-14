@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router();
 
-const userRouter = require('./users');
+const user = require('./users');
 
-router.use('/users', userRouter);
+
+router.use('/users', user);
 
 // router.all('*', (req, res) => {
 //     res.json('Error');
