@@ -14,6 +14,9 @@ app.use(express.static(`${__dirname}/../public`))
 // parses the application/json content type
 app.use(express.json())
 
+// config environment variable
+require('dotenv').config();
+
 // connect DB
 const db = require('./db/index');
 db.connect();

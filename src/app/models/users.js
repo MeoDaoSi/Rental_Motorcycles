@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
@@ -15,9 +17,13 @@ const userSchema = new Schema({
         type: String,
         lowercase: true,
         minLength: 7,
-        maxLength: 50,
+        maxLength: 255,
         require: true,
         trim: true,
+    },
+    token: {
+        type: String,
+        require: true,
     },
     role: {
         type: String,
@@ -26,6 +32,49 @@ const userSchema = new Schema({
     }   
 }, {
     timestamps: true
+})
+
+// [Method] - hidden password, token when response to client
+userSchema.methods.toJSON = function(){
+    const user = this;
+
+    const userObject = user.toObject();
+
+    delete userObject.token;
+    delete userObject.password;
+
+    return userObject;
+}
+// [Method] - generate token
+userSchema.methods.generateAuthToken = function(){
+    const user = this;
+    const token = jwt.sign({_id: user._id.toString()}, process.env.PRIVATE_KEY_TOKEN)
+    user.token = token;
+    user.save();
+    return token;
+}
+
+// [Statics] - Authentication user
+userSchema.statics.findByCredentials = async function(username,password){
+    const user = await User.findOne({username});
+    if(!user){
+        throw new Error('error');
+    }
+    const isMatch = bcrypt.compare(password, user.password);
+    if(!isMatch){
+        throw new Error('error')
+    }
+    return user
+}
+
+// [Middleware] - hash password before save
+userSchema.pre('save', async function(next){
+    const user = this;
+    // hash password if field password modified
+    if(user.isModified('password')){
+        user.password = await bcrypt.hash(user.password,8);
+    }
+    return next();
 })
 
 const User = mongoose.model('users', userSchema)

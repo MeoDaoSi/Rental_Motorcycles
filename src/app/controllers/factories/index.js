@@ -1,12 +1,11 @@
-class ControllerMethod {
+class BaseController {
     // create one data in model
     createOne(Model){
         return async (req, res) => {
             const data = await new Model(req.body);
             try {
-                console.log(data);
                 if(!data){
-                    res.status(500).json('error');
+                    return res.status(500).json('error');
                 }
                 await data.save();
                 res.status(201).json(data);
@@ -75,4 +74,4 @@ class ControllerMethod {
 
 }
 
-module.exports = new ControllerMethod
+module.exports = new BaseController
