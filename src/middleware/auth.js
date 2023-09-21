@@ -10,7 +10,7 @@ const auth = async (req, res, next) => {
         // Get token from header
         const token = await req.header('authorization').replace('Bearer ','');
         // Verify token
-        const decode = jwt.verify(token,process.env.PRIVATE_KEY_TOKEN);
+        const decode = jwt.verify(token,process.env.PRIVATE_KEY_TOKEN,process.env.JWT_EXPIREs_IN);
         // Get user from model
         const user = await User.findById(decode._id);
         if(!user){

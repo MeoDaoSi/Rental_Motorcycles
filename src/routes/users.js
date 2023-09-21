@@ -6,11 +6,12 @@ const auth = require('../middleware/auth');
 const userController = require('../app/controllers/userController');
 
 router.post('/login',userController.user_login);
+router.post('/', userController.user_createOne);
 
 // [middleware] - authorization user
 router.use(auth)
 
-router.post('/', userController.user_createOne);
+router.post('/logout',userController.user_logout);
 router.get('/getAll', userController.user_getAll);
 router.get('/get/me',userController.user_getOne);
 router.patch('/:id',userController.user_editOne);
