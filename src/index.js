@@ -2,9 +2,10 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const router = require('./routes/index')
+const AppError = require('./utils/AppError');
+const errorHandler = require('./utils/errorHandler');
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 // config public directory
 app.use(express.static(`${__dirname}/../public`))
@@ -24,7 +25,12 @@ app.get('/', (req, res) => {
 
 // Router
 app.use(router);
-
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
+// [Handle if not found api]
+app.use((req, res, next) => {
+    return next(new AppError(404,"Resource not found"))
 })
+// [Call errorHandler]
+app.use(errorHandler);
+
+
+module.exports = app

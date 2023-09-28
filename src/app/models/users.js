@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { Schema } = mongoose;
+const { roleEnum } = require('../../enums/User');
 
 const userSchema = new Schema({
     username: {
@@ -27,8 +28,8 @@ const userSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ['user','admin'],
-        default: 'user'
+        enum: Object.values(roleEnum),
+        default: "USER"
     }   
 }, {
     timestamps: true

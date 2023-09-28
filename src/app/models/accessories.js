@@ -27,6 +27,6 @@ const accessorySchema = new Schema({
     timestamps: true
 })
 
-const Accessories = mongoose.model('accessories', accessorySchema)
+const Accessory = mongoose.model('accessories', accessorySchema)
 
-module.exports = Accessories
+module.exports = Accessory

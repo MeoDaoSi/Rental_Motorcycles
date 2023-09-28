@@ -28,6 +28,6 @@ const licenseSchema = new Schema({
     timestamps: true
 })
 
-const Licenses = mongoose.model('licenses', licenseSchema)
+const License = mongoose.model('licenses', licenseSchema)
 
-module.exports = Licenses
+module.exports = License

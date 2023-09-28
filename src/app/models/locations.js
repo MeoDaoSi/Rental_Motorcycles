@@ -11,6 +11,6 @@ const locationSchema = new Schema({
     timestamps: true
 })
 
-const Locations = mongoose.model('locations', locationSchema)
+const Location = mongoose.model('locations', locationSchema)
 
-module.exports = Locations
+module.exports = Location

@@ -4,17 +4,22 @@ const auth = require('../middleware/auth');
 
 // Get Controller
 const userController = require('../app/controllers/userController');
+const authController = require('../app/controllers/authController');
 
-router.post('/login',userController.user_login);
-router.post('/', userController.user_createOne);
+// Login user
+router.post('/login',authController.login);
+// Create user
+router.post('/', authController.register);
 
 // [middleware] - authorization user
 router.use(auth)
+// Logout user
+router.post('/logout',authController.logout);
+// Get user
+router.get('/me',authController.getMe);
 
-router.post('/logout',userController.user_logout);
 router.get('/getAll', userController.user_getAll);
-router.get('/get/me',userController.user_getOne);
-router.patch('/:id',userController.user_editOne);
+router.patch('/:id',userController.user_edit);
 router.delete('/:id',userController.user_deleteOne);
 
 module.exports = router;

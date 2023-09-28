@@ -37,6 +37,6 @@ const motorSchema = new Schema({
     timestamps: true
 })
 
-const Motorcycles = mongoose.model('motorcycles', motorSchema)
+const Motorcycle = mongoose.model('motorcycles', motorSchema)
 
-module.exports = Motorcycles
+module.exports = Motorcycle

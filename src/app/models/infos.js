@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const { Schema } = mongoose;
+const { genderEnum } = require('../../enums/Infos');
 
 const infosSchema = new Schema({
     first_name: {
@@ -40,7 +41,7 @@ const infosSchema = new Schema({
             }
         }
     },
-    birthdate: {
+    birthDate: {
         type: Date,
         require: true
     },
@@ -48,7 +49,7 @@ const infosSchema = new Schema({
         type: String,
         require: false,
         trim: true,
-        enum: ['M','F','U']
+        enum: Object.values(genderEnum),
     },
     user: {
         type: Schema.ObjectId,
@@ -59,6 +60,6 @@ const infosSchema = new Schema({
     timestamps: true
 })
 
-const Infos = mongoose.model('infosSchema', userSchema)
+const Info = mongoose.model('infosSchema', userSchema)
 
-module.exports = Infos
+module.exports = Info

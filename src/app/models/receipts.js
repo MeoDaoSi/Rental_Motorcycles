@@ -11,6 +11,6 @@ const receiptSchema = new Schema({
     timestamps: true
 })
 
-const Receipts = mongoose.model('receipts', receiptSchema)
+const Receipt = mongoose.model('receipts', receiptSchema)
 
-module.exports = Receipts
+module.exports = Receipt

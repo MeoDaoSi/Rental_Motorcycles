@@ -1,5 +1,5 @@
 class BaseController {
-    // create one data in model
+    // [POST] - Method
     createOne(Model){
         return async (req, res) => {
             const data = await new Model(req.body);
@@ -14,7 +14,7 @@ class BaseController {
             }
         }
     }
-    // get all data from the model
+    // [GET] - Method
     getAll(Model){
         return async (req, res) => {
             try {
@@ -28,6 +28,7 @@ class BaseController {
             }
         }
     }
+    // [GET] - Method
     getOne(Model){
         return async (req, res) => {
             const _id = req.params.id;
@@ -42,8 +43,8 @@ class BaseController {
             }
         }
     }
-    // edit data from model
-    editOne(Model){
+    // [PATCH] - Method
+    edit(Model){
         return async (req, res) => {
             const _id = req.params.id
             const updates = Object.keys(req.body);
@@ -59,7 +60,7 @@ class BaseController {
             }
         }
     }
-    // delete data in model
+    // [DELETE] - Method
     deleteOne(Model){
         return async (req, res) => {
             const _id = req.params.id;
