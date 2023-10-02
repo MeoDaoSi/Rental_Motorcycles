@@ -9,7 +9,7 @@ const { engine } = require('express-handlebars');
 const app = express();
 
 // Config public directory
-app.use(express.static(`${__dirname}/../public`))
+app.use(express.static(path.join(__dirname, '../public')))
 // Parses the application/json content type
 app.use(express.json())
 // [Middleware] - enable cross-origin
