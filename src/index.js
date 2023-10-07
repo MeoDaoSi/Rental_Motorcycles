@@ -31,6 +31,10 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
+app.get('/login', (req, res) => {
+    res.render('login')
+})
+
 // Router
 app.use(router);
 // [Handle if not found api]
