@@ -22,10 +22,6 @@ const userSchema = new Schema({
         require: true,
         trim: true,
     },
-    token: {
-        type: String,
-        require: true,
-    },
     role: {
         type: String,
         enum: Object.values(roleEnum),
@@ -47,26 +43,26 @@ userSchema.methods.toJSON = function(){
     return userObject;
 }
 // [Method] - generate token
-userSchema.methods.generateAuthToken = function(){
-    const user = this;
-    const token = jwt.sign({_id: user._id.toString()}, process.env.PRIVATE_KEY_TOKEN)
-    user.token = token;
-    user.save();
-    return token;
-}
+// userSchema.methods.generateAuthToken = function(){
+//     const user = this;
+//     const token = jwt.sign({_id: user._id.toString()}, process.env.PRIVATE_KEY_TOKEN)
+//     user.token = token;
+//     user.save();
+//     return token;
+// }
 
 // [Statics] - Authentication user
-userSchema.statics.findByCredentials = async function(username,password){
-    const user = await User.findOne({username});
-    if(!user){
-        throw new Error('error');
-    }
-    const isMatch = bcrypt.compare(password, user.password);
-    if(!isMatch){
-        throw new Error('error')
-    }
-    return user
-}
+// userSchema.statics.findByCredentials = async function(username,password){
+//     const user = await User.findOne({username});
+//     if(!user){
+//         throw new Error('error');
+//     }
+//     const isMatch = bcrypt.compare(password, user.password);
+//     if(!isMatch){
+//         throw new Error('error')
+//     }
+//     return user
+// }
 
 // [Middleware] - hash password before save
 userSchema.pre('save', async function(next){

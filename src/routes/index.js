@@ -4,7 +4,7 @@ const router = express.Router();
 const user = require('./users');
 
 
-router.use('/users', user);
+router.use('/', user);
 
 // router.all('*', (req, res) => {
 //     res.json('Error');

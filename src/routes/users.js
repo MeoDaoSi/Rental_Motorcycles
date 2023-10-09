@@ -6,13 +6,16 @@ const auth = require('../middleware/auth');
 const userController = require('../app/controllers/userController');
 const authController = require('../app/controllers/authController');
 
+router.get('/login', (req, res) => {
+    res.render('login')
+});
 // Login user
 router.post('/login',authController.login);
 // Create user
 router.post('/', authController.register);
 
 // [middleware] - authorization user
-router.use(auth)
+// router.use(auth)
 // Logout user
 router.post('/logout',authController.logout);
 // Get user

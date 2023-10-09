@@ -1,14 +1,21 @@
 const User = require("../models/users");
 const AppError = require("../../utils/AppError");
+const bcrypt = require('bcrypt');
 
 const login = async (req, res) => {
     const { username, password } = req.body;
     try {
-        const user = await User.findByCredentials(username, password);
+        // const user = await User.findByCredentials(username, password);
+        const user = await User.findOne({username})
+        console.log(user);
+        if (!user) {
+            throw new AppError('401',"Unauthorized")
+        }
+        const isMatch = bcrypt.compare(password,user.password)
         const token = await user.generateAuthToken();
-        res.status(200).json({user, token});
+        res.render('user',user);
     } catch (error) {
-        res.status(500).json("err");
+        res.redirect('/login');
     }
 }
 
@@ -36,7 +43,8 @@ const register = async (req, res) => {
 };
 
 const getMe = (req, res) => {
-    res.status(200).json(req.user);
+    res.render('user');
+    // res.status(200).json(req.user);
 };
 
 module.exports = { 

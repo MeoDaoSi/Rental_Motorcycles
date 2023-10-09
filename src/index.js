@@ -5,6 +5,8 @@ const router = require('./routes/index')
 const AppError = require('./utils/AppError');
 const errorHandler = require('./utils/errorHandler');
 const { engine } = require('express-handlebars');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -12,6 +14,12 @@ const app = express();
 app.use(express.static(path.join(__dirname, '../public')))
 // Parses the application/json content type
 app.use(express.json())
+
+// To support URL-encoded bodies
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// To parse cookies from the HTTP Request
+app.use(cookieParser());
 // [Middleware] - enable cross-origin
 app.use(cors());
 // Config environment variable
@@ -29,10 +37,6 @@ app.set('views', `${__dirname}/resources/views`);
 // Route welcome!
 app.get('/', (req, res) => {
     res.render('home')
-})
-
-app.get('/login', (req, res) => {
-    res.render('login')
 })
 
 // Router
