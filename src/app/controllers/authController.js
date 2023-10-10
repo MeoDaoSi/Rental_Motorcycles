@@ -1,18 +1,14 @@
 const User = require("../models/users");
 const AppError = require("../../utils/AppError");
 const bcrypt = require('bcrypt');
+const messageClass = require('../../enums/flashMessage')
 
 const login = async (req, res) => {
     const { username, password } = req.body;
     try {
-        // const user = await User.findByCredentials(username, password);
-        const user = await User.findOne({username})
+        const user = await User.findByCredentials(username, password);
         console.log(user);
-        if (!user) {
-            throw new AppError('401',"Unauthorized")
-        }
-        const isMatch = bcrypt.compare(password,user.password)
-        const token = await user.generateAuthToken();
+        await user.generateAuthToken();
         res.render('user',user);
     } catch (error) {
         res.redirect('/login');
@@ -31,14 +27,35 @@ const logout = async (req, res) => {
 
 const register = async (req, res) => {
     try {
+        const { email, password, confirm_password } = req.body;
+        if( password !== confirm_password ){
+            throw new AppError("401","Mật khẩu không trùng khớp!")
+        }
         // Create new user
-        const user = await new User(req.body);
+        const user = await new User({email, password});
         await user.save();
-        // Get token
-        const token = await user.generateAuthToken();
-        res.status(201).json({user, token});
+        res.render('login',{
+            message: "Đăng ký tài khoản thành công!",
+            messageClass: messageClass.SUCCESS
+        })
     } catch (error) {
-        res.status(500).json(error);
+        if( error.status.startsWith('4') ){
+            return res.render('login',{
+                messages: {
+                    message: error.message,
+                    messageClass: messageClass.ERROR
+                }
+                
+            })
+        }
+        else{
+            res.render('register',{
+                messages: {
+                    message: "Không thể tạo tài khoản vui lòng kiểm tra lại kết nối mạng!",
+                    messageClass: messageClass.ERROR
+                }
+            })
+        }
     }
 };
 

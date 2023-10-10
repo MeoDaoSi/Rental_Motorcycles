@@ -9,10 +9,15 @@ const authController = require('../app/controllers/authController');
 router.get('/login', (req, res) => {
     res.render('login')
 });
+
+router.get('/register', (req, res) => {
+    res.render('register')
+});
+
 // Login user
 router.post('/login',authController.login);
 // Create user
-router.post('/', authController.register);
+router.post('/register', authController.register);
 
 // [middleware] - authorization user
 // router.use(auth)

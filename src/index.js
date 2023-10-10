@@ -6,7 +6,7 @@ const AppError = require('./utils/AppError');
 const errorHandler = require('./utils/errorHandler');
 const { engine } = require('express-handlebars');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+const session = require('express-session')
 
 const app = express();
 
@@ -18,16 +18,30 @@ app.use(express.json())
 // To support URL-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// To parse cookies from the HTTP Request
-app.use(cookieParser());
 // [Middleware] - enable cross-origin
 app.use(cors());
+
 // Config environment variable
 require('dotenv').config();
+
+// Session
+app.use(session({
+    secret: process.env.SECRET_SESSION, // Change this to a secure random key
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        maxAge: 3600000, // 1hr
+        secure: true, // cookie is only accessible over HTTP, requires HTTPS
+    }
+}));
+
 // Connect DB
 const db = require('./db/index');
+
 db.connect();
 // [Template] - Handlebar
+
 app.engine('.hbs', engine({
     extname: '.hbs'
 }));
@@ -36,6 +50,8 @@ app.set('views', `${__dirname}/resources/views`);
 
 // Route welcome!
 app.get('/', (req, res) => {
+    req.session.views +=1
+    console.log(req.session);
     res.render('home')
 })
 

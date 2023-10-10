@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { Schema } = mongoose;
 const { roleEnum } = require('../../enums/User');
+const AppError = require('../../utils/AppError')
 
 const userSchema = new Schema({
     username: {
@@ -42,27 +43,25 @@ userSchema.methods.toJSON = function(){
 
     return userObject;
 }
-// [Method] - generate token
-// userSchema.methods.generateAuthToken = function(){
-//     const user = this;
-//     const token = jwt.sign({_id: user._id.toString()}, process.env.PRIVATE_KEY_TOKEN)
-//     user.token = token;
-//     user.save();
-//     return token;
-// }
+// [Method] - Generate token
+userSchema.methods.generateAuthToken = function(){
+    const user = this;
+    const token = jwt.sign({_id: user._id.toString()}, process.env.PRIVATE_KEY_TOKEN)
+    res.cookie("SignedCookies",token);
+}
 
 // [Statics] - Authentication user
-// userSchema.statics.findByCredentials = async function(username,password){
-//     const user = await User.findOne({username});
-//     if(!user){
-//         throw new Error('error');
-//     }
-//     const isMatch = bcrypt.compare(password, user.password);
-//     if(!isMatch){
-//         throw new Error('error')
-//     }
-//     return user
-// }
+userSchema.statics.findByCredentials = async function(username,password){
+    const user = await User.findOne({username});
+    if(!user){
+        throw new AppError('401',"Unauthorized")
+    }
+    const isMatch = bcrypt.compare(password, user.password);
+    if(!isMatch){
+        throw new AppError('401',"Unauthorized")
+    }
+    return user
+}
 
 // [Middleware] - hash password before save
 userSchema.pre('save', async function(next){
