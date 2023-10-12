@@ -6,14 +6,12 @@ const { roleEnum } = require('../../enums/User');
 const AppError = require('../../utils/AppError')
 
 const userSchema = new Schema({
-    username: {
+    email: {
         type: String,
         require: true,
         trim: true,
-        minLength: 7,
-        maxLength: 50,
+        unique: true,
         lowercase: true,
-        unique: true
     },
     password: {
         type: String,
@@ -33,45 +31,32 @@ const userSchema = new Schema({
 })
 
 // [Method] - hidden password, token when response to client
-userSchema.methods.toJSON = function(){
-    const user = this;
+// userSchema.methods.toJSON = function(){
+//     const user = this;
 
-    const userObject = user.toObject();
+//     const userObject = user.toObject();
 
-    delete userObject.token;
-    delete userObject.password;
+//     delete userObject.token;
+//     delete userObject.password;
 
-    return userObject;
-}
+//     return userObject;
+// }
 // [Method] - Generate token
-userSchema.methods.generateAuthToken = function(){
-    const user = this;
-    const token = jwt.sign({_id: user._id.toString()}, process.env.PRIVATE_KEY_TOKEN)
-    res.cookie("SignedCookies",token);
-}
-
-// [Statics] - Authentication user
-userSchema.statics.findByCredentials = async function(username,password){
-    const user = await User.findOne({username});
-    if(!user){
-        throw new AppError('401',"Unauthorized")
-    }
-    const isMatch = bcrypt.compare(password, user.password);
-    if(!isMatch){
-        throw new AppError('401',"Unauthorized")
-    }
-    return user
-}
+// userSchema.methods.generateAuthToken = function(){
+//     const user = this;
+//     const token = jwt.sign({_id: user._id.toString()}, process.env.PRIVATE_KEY_TOKEN)
+//     res.cookie("SignedCookies",token);
+// }
 
 // [Middleware] - hash password before save
-userSchema.pre('save', async function(next){
-    const user = this;
-    // hash password if field password modified
-    if(user.isModified('password')){
-        user.password = await bcrypt.hash(user.password,8);
-    }
-    return next();
-})
+// userSchema.pre('save', async function(next){
+//     const user = this;
+//     // hash password if field password modified
+//     if(user.isModified('password')){
+//         user.password = await bcrypt.hash(user.password,8);
+//     }
+//     return next();
+// })
 
 const User = mongoose.model('users', userSchema)
 

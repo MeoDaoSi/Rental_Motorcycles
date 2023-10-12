@@ -14,18 +14,6 @@ const infosSchema = new Schema({
         require: true,
         trim: true 
     },
-    email: {
-        type: String,
-        require: true,
-        trim: true,
-        unique: true,
-        lowercase: true,
-        validate(e){
-            if(!validator.isEmail(e)){
-                throw new Error('Email is invalid!');
-            }
-        }
-    },
     address: {
         type: String,
         require: true,

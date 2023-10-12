@@ -7,11 +7,24 @@ const userController = require('../app/controllers/userController');
 const authController = require('../app/controllers/authController');
 
 router.get('/login', (req, res) => {
-    res.render('login')
+    if(req.session.user){
+        return res.redirect('/')
+    }
+    const messages = req.flash('message')[0];
+    console.log(req.flash('message'));
+    res.render('login', {
+        messages
+    })
 });
 
 router.get('/register', (req, res) => {
-    res.render('register')
+    if(req.session.user){
+        return res.redirect('/')
+    }
+    const messages = req.flash('message')[0];
+    res.render('register', {
+        messages
+    })
 });
 
 // Login user
@@ -20,7 +33,7 @@ router.post('/login',authController.login);
 router.post('/register', authController.register);
 
 // [middleware] - authorization user
-// router.use(auth)
+router.use(auth)
 // Logout user
 router.post('/logout',authController.logout);
 // Get user

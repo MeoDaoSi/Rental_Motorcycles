@@ -7,6 +7,7 @@ const errorHandler = require('./utils/errorHandler');
 const { engine } = require('express-handlebars');
 const bodyParser = require('body-parser');
 const session = require('express-session')
+const flash = require('connect-flash');
 
 const app = express();
 
@@ -31,10 +32,12 @@ app.use(session({
     saveUninitialized: true,
     cookie: {
         httpOnly: true,
-        maxAge: 3600000, // 1hr
-        secure: true, // cookie is only accessible over HTTP, requires HTTPS
+        maxAge: 259200000 // 3day
+        // secure: true, cookie is only accessible over HTTP, requires HTTPS
     }
 }));
+// [Middleware] - Flash message
+app.use(flash());
 
 // Connect DB
 const db = require('./db/index');
@@ -50,17 +53,20 @@ app.set('views', `${__dirname}/resources/views`);
 
 // Route welcome!
 app.get('/', (req, res) => {
-    req.session.views +=1
     console.log(req.session);
-    res.render('home')
+    res.render('home', {
+        user: req.session.user
+    })
 })
 
 // Router
 app.use(router);
-// [Handle if not found api]
+// [Handle if not found route]
+
 app.use((req, res, next) => {
     return next(new AppError(404,'Resource not found'))
 })
+
 // [Call errorHandler]
 app.use(errorHandler);
 

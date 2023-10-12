@@ -4,57 +4,83 @@ const bcrypt = require('bcrypt');
 const messageClass = require('../../enums/flashMessage')
 
 const login = async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     try {
-        const user = await User.findByCredentials(username, password);
+        const user = await User.findOne({email});
+        if(!user){
+            throw new AppError('401','Email chưa được đăng ký !')
+        }
         console.log(user);
-        await user.generateAuthToken();
-        res.render('user',user);
+        // const isMatch = await bcrypt.compare(password, user.password);
+        if(password !== user.password){
+            throw new AppError('401','Mật khẩu không hợp lệ !')
+        }
+        
+        // if(!isMatch){
+        //     throw new AppError('401','Mật khẩu không hợp lệ !')
+        // }
+        req.session.user = user;
+        return res.redirect('/');
     } catch (error) {
-        res.redirect('/login');
+        if( error.status?.startsWith('4') ){
+            req.flash('message', {
+                message: error.message,
+                messageClass : messageClass.ERROR
+            })
+            return res.redirect('/login');
+        }
+        else{
+            req.flash('message', {
+                message: error._message || 'Không thể tạo tài khoản vui lòng kiểm tra lại kết nối mạng !',
+                messageClass : messageClass.ERROR
+            })
+            return res.redirect('/login');
+        }
     }
 }
 
 const logout = async (req, res) => {
     try {
-        req.user.token = "";
-        await req.user.save();
-        res.status(200).json();
+        req.session.user = null;
+        res.redirect('/login')
     } catch (error) {
-        res.status(500).json();
+        res.redirect('/')
     }
 }
 
 const register = async (req, res) => {
     try {
+        
         const { email, password, confirm_password } = req.body;
         if( password !== confirm_password ){
-            throw new AppError("401","Mật khẩu không trùng khớp!")
+            throw new AppError("401","Mật khẩu không trùng khớp !")
         }
         // Create new user
-        const user = await new User({email, password});
+        const user = new User({email, password});
+        console.log(user);
         await user.save();
-        res.render('login',{
-            message: "Đăng ký tài khoản thành công!",
-            messageClass: messageClass.SUCCESS
+        req.flash('message', {
+            message: 'Đăng ký tài khoản thành công, Vui lòng đăng nhập !',
+            messageClass : messageClass.SUCCESS
         })
+        return res.redirect('/login');
     } catch (error) {
-        if( error.status.startsWith('4') ){
-            return res.render('login',{
-                messages: {
-                    message: error.message,
-                    messageClass: messageClass.ERROR
-                }
-                
+        if( error.status?.startsWith('4') ){
+            req.flash('message', {
+                message: error.message,
+                messageClass : messageClass.ERROR
             })
+            res.redirect('/register');
         }
         else{
-            res.render('register',{
-                messages: {
-                    message: "Không thể tạo tài khoản vui lòng kiểm tra lại kết nối mạng!",
-                    messageClass: messageClass.ERROR
-                }
+            if(error._message.includes('validation')){
+                error._message = 'Tài Khoảng hoặc mật khẩu không hợp lệ !'
+            }
+            req.flash('message', {
+                message: error._message || 'Không thể tạo tài khoản vui lòng kiểm tra lại kết nối mạng !',
+                messageClass : messageClass.ERROR
             })
+            res.redirect('/register');
         }
     }
 };
