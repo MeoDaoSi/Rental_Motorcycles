@@ -27,14 +27,14 @@ const login = async (req, res) => {
                 message: error.message,
                 messageClass : messageClass.ERROR
             })
-            return res.redirect('/login');
+            return res.redirect('/user/login');
         }
         else{
             req.flash('message', {
                 message: error._message || 'Không thể tạo tài khoản vui lòng kiểm tra lại kết nối mạng !',
                 messageClass : messageClass.ERROR
             })
-            return res.redirect('/login');
+            return res.redirect('/user/login');
         }
     }
 }
@@ -42,7 +42,7 @@ const login = async (req, res) => {
 const logout = async (req, res) => {
     try {
         req.session.user = null;
-        res.redirect('/login')
+        res.redirect('/user/login')
     } catch (error) {
         res.redirect('/')
     }
@@ -63,14 +63,14 @@ const register = async (req, res) => {
             message: 'Đăng ký tài khoản thành công, Vui lòng đăng nhập !',
             messageClass : messageClass.SUCCESS
         })
-        return res.redirect('/login');
+        return res.redirect('/user/login');
     } catch (error) {
         if( error.status?.startsWith('4') ){
             req.flash('message', {
                 message: error.message,
                 messageClass : messageClass.ERROR
             })
-            res.redirect('/register');
+            res.redirect('/user/register');
         }
         else{
             if(error._message.includes('validation')){
@@ -80,13 +80,15 @@ const register = async (req, res) => {
                 message: error._message || 'Không thể tạo tài khoản vui lòng kiểm tra lại kết nối mạng !',
                 messageClass : messageClass.ERROR
             })
-            res.redirect('/register');
+            res.redirect('/user/register');
         }
     }
 };
 
 const getMe = (req, res) => {
-    res.render('user');
+    res.render('user',{
+        user: req.session.user
+    });
     // res.status(200).json(req.user);
 };
 

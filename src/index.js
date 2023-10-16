@@ -51,14 +51,6 @@ app.engine('.hbs', engine({
 app.set('view engine', '.hbs');
 app.set('views', `${__dirname}/resources/views`);
 
-// Route welcome!
-app.get('/', (req, res) => {
-    console.log(req.session);
-    res.render('home', {
-        user: req.session.user
-    })
-})
-
 // Router
 app.use(router);
 // [Handle if not found route]
@@ -72,3 +64,7 @@ app.use(errorHandler);
 
 
 module.exports = app
+
+// PATH=%PATH%;D:\b\node-v18.18.0-win-x64
+// /b/mongodb/bin/mongod.exe --dbpath=/b/mongodb_data
+// npx tailwindcss -i ./src/input.css -o ./public/css/style.css --watch
