@@ -3,6 +3,7 @@ const router = express.Router();
 
 const auth = require('./auth');
 const reservation = require('./reservation');
+const admin = require('./admin');
 
 // Route welcome!
 router.get('/', (req, res) => {
@@ -13,8 +14,9 @@ router.get('/', (req, res) => {
     })
 })
 
-router.use('/reservation', reservation);
 router.use('/user', auth);
+router.use('/reservation', reservation);
+router.use('/admin', admin);
 
 // router.all('*', (req, res) => {
 //     res.json('Error');

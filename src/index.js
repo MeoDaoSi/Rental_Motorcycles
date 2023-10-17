@@ -65,6 +65,6 @@ app.use(errorHandler);
 
 module.exports = app
 
-// PATH=%PATH%;D:\b\node-v18.18.0-win-x64
+// PATH=%PATH%;D:\b\node-v18.17.1-win-x64
 // /b/mongodb/bin/mongod.exe --dbpath=/b/mongodb_data
 // npx tailwindcss -i ./src/input.css -o ./public/css/style.css --watch

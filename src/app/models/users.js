@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { Schema } = mongoose;
-const { roleEnum } = require('../../enums/User');
+const { roleEnum, statusEnum } = require('../../enums/User');
 const AppError = require('../../utils/AppError')
 
 const userSchema = new Schema({
@@ -20,6 +20,13 @@ const userSchema = new Schema({
         maxLength: 255,
         require: true,
         trim: true,
+    },
+    status: {
+        type: String,
+        lowercase: true,
+        require: true,
+        enum: Object.values(statusEnum),
+        default: "ACTIVE"
     },
     role: {
         type: String,
