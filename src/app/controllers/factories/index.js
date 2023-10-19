@@ -2,15 +2,12 @@ class BaseController {
     // [POST] - Method
     createOne(Model){
         return async (req, res) => {
-            const data = await new Model(req.body);
+            const data = new Model(req.body);
             try {
-                if(!data){
-                    return res.status(500).json('error');
-                }
                 await data.save();
-                res.status(201).json(data);
+                res.redirect('./')
             } catch (error) {
-                res.status(400).json(error);
+                res.redirect('./')
             }
         }
     }
@@ -20,11 +17,13 @@ class BaseController {
             try {
                 const data = await Model.find();
                 if(!data){
-                    res.status(500).json('error');
+                    res.redirect('/')
                 }
-                res.status(200).json(data);
+                res.render(Model.modelName,{
+                    locations: data
+                });
             } catch (error) {
-                res.status(500).json('error');
+                res.redirect('/')
             }
         }
     }

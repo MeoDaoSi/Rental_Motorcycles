@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const locationSchema = new Schema({
-    name: {
+    address: {
         type: String,
         require: true,
         trim: true,

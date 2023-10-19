@@ -8,6 +8,10 @@ const { engine } = require('express-handlebars');
 const bodyParser = require('body-parser');
 const session = require('express-session')
 const flash = require('connect-flash');
+const Handlebars = require('handlebars')
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
+const moment = require('moment');
+
 
 const app = express();
 
@@ -45,10 +49,18 @@ const db = require('./db/index');
 db.connect();
 // [Template] - Handlebar
 
+Handlebars.registerHelper("formatDate", function (date) {
+
+    return moment().format('LLLL');
+});
+
 app.engine('.hbs', engine({
-    extname: '.hbs'
+    extname: '.hbs',
+    handlebars: allowInsecurePrototypeAccess(Handlebars)
 }));
 app.set('view engine', '.hbs');
+
+
 app.set('views', `${__dirname}/resources/views`);
 
 // Router

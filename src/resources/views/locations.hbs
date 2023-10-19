@@ -1,0 +1,45 @@
+<div class="bg-gray-100">
+
+    <div class="flex-1 flex">
+        
+        {{>sidebar}}
+
+        <div class="flex-1 p-4">
+            <div class="relative max-w-md w-full">
+                <div class="absolute top-1 left-2 inline-flex items-center p-2">
+                    <i class="fas fa-search text-gray-400"></i>
+                </div>
+                <input class="w-full h-10 pl-10 pr-4 py-1 text-base placeholder-gray-500 border rounded-full focus:shadow-outline" type="search" placeholder="Search...">
+            </div>
+
+            <div class="bg-white p-4 rounded-md mt-4">
+                <h2 class="text-gray-500 text-lg font-semibold pb-4">Thông tin khu vực</h2>
+                <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
+                    <table class="w-full table-auto text-sm">
+                        <thead>
+                            <tr class="text-sm ">
+                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">ID</th>
+                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Địa chỉ</th>
+                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Ngày tạo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each locations}}
+                                <tr class="hover:bg-grey-lighter">
+                                    <td class="py-2 px-4 border-b border-grey-light">{{this._id}}</td>
+                                    <td class="py-2 px-4 border-b border-grey-light">{{this.address}}</td>
+                                    <td class="py-2 px-4 border-b border-grey-light">{{this.createdAt}}</td>
+                                </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    <div class="text-right mt-4">
+                        <a href="/admin/locations/create" class="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded">
+                            Thêm
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
