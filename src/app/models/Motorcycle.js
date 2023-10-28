@@ -2,17 +2,12 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const motorSchema = new Schema({
-    color: {
+    name: {
         type: String,
         require: true,
         trim: true,
     },
-    year: {
-        type: Date,
-        require: true,
-        trim: true,
-    },
-    license_plates: {
+    license_plate: {
         type: String,
         require: true,
         trim: true,
@@ -21,16 +16,12 @@ const motorSchema = new Schema({
         type: String,
         require: true,
         trim: true,
-        enum: ['active','inactive']
-    },
-    model: {
-        type: Schema.ObjectId,
-        ref: 'models',
-        require: true,
+        enum: ['ACTIVE','INACTIVE'],
+        default: 'ACTIVE'
     },
     location: {
         type: Schema.ObjectId,
-        ref: 'locations',
+        ref: 'Location',
         require: true,
     }
 }, {

@@ -1,4 +1,4 @@
-const User = require("../models/users");
+const User = require("../models/User");
 const AppError = require("../../utils/AppError");
 const bcrypt = require('bcrypt');
 const messageClass = require('../../enums/flashMessage')

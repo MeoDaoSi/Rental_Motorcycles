@@ -1,11 +1,45 @@
 const express = require('express');
 const router = express.Router();
 const location = require('./location')
+const authAdmin = require('../middleware/authAdmin');
+const User = require('../app/models/User');
+const AppError = require('../utils/AppError')
+
+router.get('/login', (req, res) => {
+    if(!req.session.admin){
+
+        return res.render('loginAdmin');
+    }
+    return res.redirect('/admin/dashboard')
+})
+
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const admin = await User.findOne({email, role: "ADMIN"})
+        console.log(admin);
+        if( !admin ){
+            throw new AppError('403', "Email not founded");
+        }
+        isMatch = admin.password === password;
+        if( !isMatch ){
+            throw new AppError('403', "Incorrect password")
+        }
+        req.session.admin = admin;
+        return res.redirect('/admin/dashboard');
+    } catch (error) {
+        return res.redirect('/')
+    }
+})
+
+// router.use(authAdmin);
 
 router.get('/dashboard',(req, res) => {
     res.render('dashboard');
 })
 
-router.use('/locations',location);
+router.use('/location',location);
+
+router.use('/users',location);
 
 module.exports = router

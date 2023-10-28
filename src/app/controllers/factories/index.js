@@ -1,32 +1,31 @@
+const AppError = require('../../../utils/AppError');
+
 class BaseController {
     // [POST] - Method
     createOne(Model){
-        return async (req, res) => {
+        return async (req, res, next) => {
             const data = new Model(req.body);
             try {
                 await data.save();
-                res.redirect('./')
+                return res.redirect('./')
             } catch (error) {
-                res.redirect('./')
+                next(new AppError('500','Unable Connection!'))
             }
         }
     }
     // [GET] - Method
-    getAll(Model){
-        return async (req, res) => {
-            try {
-                const data = await Model.find();
-                if(!data){
-                    res.redirect('/')
-                }
-                res.render(Model.modelName,{
-                    locations: data
-                });
-            } catch (error) {
-                res.redirect('/')
-            }
-        }
-    }
+    // getAll(Model){
+    //     return async (req, res) => {
+    //         try {
+    //             const data = await Model.find();
+    //             res.render(Model.modelName.toLowerCase(),{
+    //                 location: data
+    //             });
+    //         } catch (error) {
+    //             res.redirect('/')
+    //         }
+    //     }
+    // }
     // [GET] - Method
     getOne(Model){
         return async (req, res) => {

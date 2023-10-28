@@ -1,0 +1,32 @@
+<section class="bg-gray-50 dark:bg-gray-900">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+
+        {{#if messages}}
+            
+            {{>flashMessage parameter=messages }}
+        {{/if}}
+
+        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    Thêm Xe Mới
+                </h1>
+                <form class="space-y-4 md:space-y-6" action="/admin/location/{{location_id}}/motorcycle/create" method="post">
+                    <div>
+                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tên</label>
+                        <input type="text" placeholder="Air Blade 125/160" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                    </div>
+                    <div>
+                        <label for="license_plate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Biển số</label>
+                        <input type="text" name="license_plate" id="license_plate" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="65-F1 99999" required="">
+                    </div>
+                    <div>
+                        <input type="text" placeholder="Air Blade 125/160" name="location" id="location" class="hidden" required="" value="{{location_id}}">
+                    </div>
+                    <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Thêm</button>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
