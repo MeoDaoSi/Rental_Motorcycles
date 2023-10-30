@@ -23,6 +23,7 @@
                                 <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Ngày tạo</th>
                                 <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Số lượng xe</th>
                                 <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Chi Tiết</th>
+                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Chỉnh sửa</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,8 +34,13 @@
                                     <td class="py-2 px-4 border-b border-grey-light">{{this.createdAt}}</td>
                                     <td class="py-2 px-4 border-b border-grey-light">1</td>
                                     <td class="py-2 px-4 border-b border-grey-light">
-                                        <a href="/admin/location/{{this._id}}/motorcycle" class="">
+                                        <a href="/admin/location/{{this._id}}/motorcycle">
                                             <i class="fa-solid fa-info"></i>
+                                        </a>
+                                    </td>
+                                    <td class="py-2 px-4 border-b border-grey-light">
+                                        <a href="/admin/location/{{this._id}}">
+                                            <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
                                     </td>
                                 </tr>
@@ -42,7 +48,7 @@
                         </tbody>
                     </table>
                     <div class="text-right mt-4">
-                        <a href="/admin/locations/create" class="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded">
+                        <a href="/admin/location/create" class="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-4 rounded">
                             Thêm
                         </a>
                     </div>

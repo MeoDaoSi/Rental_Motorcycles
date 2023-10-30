@@ -50,12 +50,13 @@
                     <div class="flex">
                         <label class="mr-4 block">Địa điểm thuê:</label>
 
+                        
+
                         <div class="flex">
                             <select id="pickup_location" name="pickup_location">
-                                <option value="volvo">Volvo</option>
-                                <option value="saab">Saab</option>
-                                <option value="fiat">Fiat</option>
-                                <option value="audi">Audi</option>
+                                {{#each location}}
+                                    <option value="{{this.address}}">{{this.address}}</option>
+                                {{/each}}
                             </select>
                             
                         </div>
@@ -64,14 +65,11 @@
 
 
                         <div class="flex ">
-                            <select id="return_location" name="return_location">
-                                <option value="volvo">Volvo</option>
-                                <option value="saab">Saab</option>
-                                <option value="fiat">Fiat</option>
-                                <option value="audi">Audi</option>
+                            <select id="pickup_location" name="pickup_location">
+                                {{#each location}}
+                                    <option value="{{this.address}}">{{this.address}}</option>
+                                {{/each}}
                             </select>
-
-                            
                         </div>
                     </div>
 

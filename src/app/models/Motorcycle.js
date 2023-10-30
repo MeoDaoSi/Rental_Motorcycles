@@ -12,6 +12,11 @@ const motorSchema = new Schema({
         require: true,
         trim: true,
     },
+    price_per_day: {
+        type: Number,
+        require: true,
+        trim: true,
+    },
     status: {
         type: String,
         require: true,
