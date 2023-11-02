@@ -21,7 +21,8 @@ const accessorySchema = new Schema({
     },
     status: {
         type: String,
-        enum: ['active','inactive'],
+        enum: ['ACTIVE','INACTIVE'],
+        default: 'ACTIVE'
     }   
 }, {
     timestamps: true

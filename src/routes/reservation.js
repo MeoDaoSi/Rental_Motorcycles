@@ -31,15 +31,9 @@ router.get('/motorcycle', async (req, res) => {
 })
 
 router.get('/accessory', async (req, res) => {
-    const address  = req.session.rental?.schedule?.pickup_location[0];
-    console.log(address);
+    console.log(req.session.rental);
     try {
-        const location_id = await Location.findOne({address})
-        const motor = await Motorcycle.find({location: location_id});
-        res.render('reservation_motorcycle', {
-            schedule: req.session.rental?.schedule,
-            motor: motor
-        });
+        res.render('reservation_accessory');
     } catch (error) {
         res.redirect('/')
     }
@@ -54,5 +48,16 @@ router.post('/schedule',(req, res) => {
     }
     res.redirect('/reservation/motorcycle')
 })
+
+router.post('/motorcycles',(req, res) => {
+    req.session.rental = {
+        ...req.session.rental,
+        motor: {
+            ...req.body
+        }
+    }
+    res.redirect('/reservation/accessory')
+})
+
 
 module.exports = router

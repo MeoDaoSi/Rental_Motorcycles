@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const location = require('./location')
+const accessory = require('./accessory')
 const authAdmin = require('../middleware/authAdmin');
 const User = require('../app/models/User');
 const AppError = require('../utils/AppError')
@@ -39,6 +40,8 @@ router.get('/dashboard',(req, res) => {
 })
 
 router.use('/location',location);
+
+router.use('/accessory',accessory);
 
 router.use('/users',location);
 
