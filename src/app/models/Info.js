@@ -23,11 +23,11 @@ const infosSchema = new Schema({
         type: Number,
         unique: true,
         require: [true, 'Phone number required'],
-        validate(n){
-            if(!/\d{3}-\d{3}-\d{4}/.test(n)){
-                throw new Error('The number is not valid!')
-            }
-        }
+        // validate(n){
+        //     if(!/\d{3}-\d{3}-\d{4}/.test(n)){
+        //         throw new Error('The number is not valid!')
+        //     }
+        // }
     },
     birthDate: {
         type: Date,
@@ -42,12 +42,11 @@ const infosSchema = new Schema({
     user: {
         type: Schema.ObjectId,
         ref: 'users',
-        require: true,
     }
 }, {
     timestamps: true
 })
 
-const Info = mongoose.model('infosSchema', userSchema)
+const Info = mongoose.model('infosSchema', infosSchema)
 
 module.exports = Info

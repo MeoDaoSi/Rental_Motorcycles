@@ -1151,6 +1151,11 @@ input:checked + .toggle-bg {
   margin-right: 1rem;
 }
 
+.mx-6 {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1334,7 +1339,9 @@ input:checked + .toggle-bg {
 .h-9 {
   height: 2.25rem;
 }
-
+.h-24 {
+  height: 6.25rem;
+}
 .h-full {
   height: 100%;
 }
@@ -1565,6 +1572,10 @@ input:checked + .toggle-bg {
   justify-content: space-between;
 }
 
+.justify-around{
+  justify-content: space-around;
+}
+
 .gap-4 {
   gap: 1rem;
 }
@@ -1655,6 +1666,9 @@ input:checked + .toggle-bg {
 .rounded-t-lg {
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
+}
+.border-b-4	{
+  border-bottom-width: 1px;
 }
 
 .border {

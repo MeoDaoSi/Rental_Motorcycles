@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const { rental_status_enum } = require('../../enums/rental');
 
 const rentalSchema = new Schema({
     rental_start_day: {
@@ -27,7 +28,8 @@ const rentalSchema = new Schema({
         type: String,
         require: true,
         trim: true,
-        enum: ['pending','approve','reject','complete']
+        enum: Object.values(rental_status_enum),
+        default: "PENDING"
     },
     motor: {
         type: Schema.ObjectId,
@@ -37,18 +39,12 @@ const rentalSchema = new Schema({
     info: {
         type: Schema.ObjectId,
         ref: 'infos',
-        require: true,
+        require: true
     },
     user: {
         type: Schema.ObjectId,
         ref: 'users',
-        require: true,
     },
-    receipt: {
-        type: Schema.ObjectId,
-        ref: 'receipts',
-        require: true,
-    }
 }, {
     timestamps: true
 })

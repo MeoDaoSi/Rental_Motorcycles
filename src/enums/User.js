@@ -4,8 +4,8 @@ const roleEnum = {
 }
 
 const genderEnum = {
-    F: "F",
-    M: "M",
+    FEMALE: "FEMALE",
+    MALE: "MALE",
 }
 
 const statusEnum = {
