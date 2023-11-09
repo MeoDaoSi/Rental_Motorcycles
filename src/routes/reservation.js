@@ -4,11 +4,11 @@ const Location = require('../app/models/Location')
 const Motorcycle = require('../app/models/Motorcycle')
 const Rental = require('../app/models/Rental')
 const Info = require('../app/models/Info')
+const { VND_format, duration } = require('../helpers/index');
 
 router.get('/schedule', async (req, res) => {
     try {
         const location = await Location.find();
-        console.log(location);
         res.render('reservation_schedule',{
             location
         });
@@ -18,8 +18,7 @@ router.get('/schedule', async (req, res) => {
 })
 
 router.get('/motorcycle', async (req, res) => {
-    const address  = req.session.rental.schedule.pickup_location;
-    console.log(address);
+    const address  = req.session.rental?.schedule?.pickup_location;
     try {
         const location_id = await Location.findOne({address})
         const motor = await Motorcycle.find({location: location_id});
@@ -42,12 +41,13 @@ router.get('/accessory', async (req, res) => {
 })
 
 router.get('/infos', async (req, res) => {
+    const total = req.session.rental?.total
+    total_cost = VND_format(total);
     console.log(req.session.rental);
-    const motor = await Motorcycle.findById(req.session.rental.motor.id);
-    console.log(motor);
     res.render('reservation_infos', {
         schedule: req.session.rental?.schedule,
-        motor: motor
+        motor: req.session.rental?.motor,
+        total: total_cost
     })
 })
 
@@ -77,8 +77,8 @@ router.post('/schedule',(req, res) => {
     req.session.rental = {
         schedule: {
             email,
-            start_day : start,
-            end_day : end,
+            start_date : start,
+            end_date : end,
             start_time: time_rental[0],
             end_time: time_rental[1],
             pickup_location,
@@ -89,14 +89,25 @@ router.post('/schedule',(req, res) => {
     res.redirect('/reservation/motorcycle')
 })
 
-router.post('/motorcycles',(req, res) => {
-    req.session.rental = {
-        ...req.session.rental,
-        motor: {
-            ...req.body
+router.post('/motorcycles', async (req, res) => {
+    const motor_id = req.body.id;
+    const start_date = req.session.rental.schedule.start_date;
+    const end_date = req.session.rental.schedule.end_date;
+    const days = duration(start_date, end_date)
+    console.log(days);
+    try {
+        const motor = await Motorcycle.findById(motor_id);
+        const total = days * motor.price_per_day;
+        req.session.rental = {
+            ...req.session.rental,
+            motor,
+            total,
         }
+        res.redirect('/reservation/infos')
+    } catch (error) {
+        res.redirect('/')
     }
-    res.redirect('/reservation/infos')
+    
 })
 
 router.post('/rental', async (req, res) => {

@@ -8,7 +8,6 @@ const admin = require('./admin');
 // Route welcome!
 router.get('/', (req, res) => {
     req.session.rental = {}
-    console.log(req.session);
     res.render('home', {
         user: req.session.user
     })

@@ -11,7 +11,7 @@ const flash = require('connect-flash');
 const Handlebars = require('handlebars')
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const moment = require('moment');
-
+const dateMath = require('date-arithmetic');
 
 const app = express();
 
@@ -49,11 +49,6 @@ const db = require('./db/index');
 db.connect();
 // [Template] - Handlebar
 
-Handlebars.registerHelper("formatDate", function (date) {
-
-    return moment().format('LLLL');
-});
-
 app.engine('.hbs', engine({
     extname: '.hbs',
     handlebars: allowInsecurePrototypeAccess(Handlebars)
@@ -73,7 +68,6 @@ app.use((req, res, next) => {
 
 // [Call errorHandler]
 app.use(errorHandler);
-
 
 module.exports = app
 
