@@ -23,7 +23,6 @@ const userSchema = new Schema({
     },
     status: {
         type: String,
-        lowercase: true,
         require: true,
         enum: Object.values(statusEnum),
         default: "ACTIVE"

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const location = require('./location')
+const user = require('./user')
 const accessory = require('./accessory')
 const authAdmin = require('../middleware/authAdmin');
 const User = require('../app/models/User');
@@ -43,6 +44,6 @@ router.use('/location',location);
 
 router.use('/accessory',accessory);
 
-router.use('/users',location);
+router.use('/user',user);
 
 module.exports = router
