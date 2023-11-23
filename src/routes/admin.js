@@ -3,6 +3,7 @@ const router = express.Router();
 const location = require('./location')
 const user = require('./user')
 const accessory = require('./accessory')
+const rental = require('./rental')
 const authAdmin = require('../middleware/authAdmin');
 const User = require('../app/models/User');
 const AppError = require('../utils/AppError')
@@ -43,6 +44,8 @@ router.get('/dashboard',(req, res) => {
 router.use('/location',location);
 
 router.use('/accessory',accessory);
+
+router.use('/rental',rental);
 
 router.use('/user',user);
 

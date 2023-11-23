@@ -1,16 +1,45 @@
 const BaseController = require('./factories');
-const Rental = require('../model/rentals');
+const Rental = require('../models/Rental');
 
 const rental_createOne = BaseController.createOne(Rental)
-const rental_getOne = BaseController.getOne(Rental);
-const rental_getAll = BaseController.getAll(Rental);
+const rental_getAll = async (req, res) => {
+    try {
+        const rental = await Rental.find();
+        res.render('rental',{
+            rental
+        });
+    } catch (error) {
+        res.redirect('/')
+    }
+}
+
+const rental_getOne = async (req, res) => {
+    const _id = req.params.id;
+    console.log(_id);
+    try {
+        const rental = await Rental.findById(_id)
+        .populate(
+            'info'
+        )
+        .exec();
+        // console.log(rental.motor);
+        console.log(rental.info);
+        res.render('rental_detail', {
+            rental
+        })
+        
+    } catch (error) {
+        res.redirect('/');
+    }
+}
+
 const rental_edit = BaseController.edit(Rental);
 const rental_delete = BaseController.deleteOne(Rental);
 
 module.exports = {
     rental_createOne,
-    rental_getOne,
     rental_getAll,
+    rental_getOne,
     rental_edit,
     rental_delete,
 }

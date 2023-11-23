@@ -51,7 +51,20 @@ db.connect();
 
 app.engine('.hbs', engine({
     extname: '.hbs',
-    handlebars: allowInsecurePrototypeAccess(Handlebars)
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
+    helpers: {
+        increment(variable) {
+            return variable + 1;
+        },
+        formatDate(date) {
+            const dateFormat = date.toLocaleDateString("en-US");
+            return dateFormat
+        },
+        VND_format(cost) {
+            total_cost = cost.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+            return total_cost
+        }
+    }
 }));
 app.set('view engine', '.hbs');
 

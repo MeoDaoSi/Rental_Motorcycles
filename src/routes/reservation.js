@@ -113,7 +113,8 @@ router.post('/motorcycles', async (req, res) => {
 router.post('/rental', async (req, res) => {
     console.log(req.session.rental);
     const { email, start_day, end_day, start_time, end_time, pickup_location, return_location } = req.session.rental.schedule;
-    const { id } = req.session.rental.motor;
+    const id  = req.session.rental.motor._id;
+    console.log(id);
     const { last_name, address, first_name, phone, birth_date, note, gender } = req.session.rental.infos;
     try {
         const infos = new Info({

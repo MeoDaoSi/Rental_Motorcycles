@@ -18,10 +18,8 @@
                     <table class="w-full table-auto text-sm">
                         <thead>
                             <tr class="text-sm ">
-                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">ID</th>
                                 <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Địa chỉ</th>
                                 <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Ngày tạo</th>
-                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Số lượng xe</th>
                                 <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Chi Tiết</th>
                                 <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Chỉnh sửa</th>
                             </tr>
@@ -29,10 +27,8 @@
                         <tbody>
                             {{#each location}}
                                 <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light">{{this._id}}</td>
                                     <td class="py-2 px-4 border-b border-grey-light">{{this.address}}</td>
                                     <td class="py-2 px-4 border-b border-grey-light">{{this.createdAt}}</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">1</td>
                                     <td class="py-2 px-4 border-b border-grey-light">
                                         <a href="/admin/location/{{this._id}}/motorcycle">
                                             <i class="fa-solid fa-info"></i>

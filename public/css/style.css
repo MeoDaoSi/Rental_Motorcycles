@@ -1776,6 +1776,22 @@ input:checked + .toggle-bg {
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
 
+.bg-PENDING-400	{
+  background-color: rgb(251 146 60);
+}
+
+.bg-APPROVE-400	{
+  background-color: rgb(77 124 15);
+}
+
+.bg-CANCEL-400	{
+  background-color: rgb(163 163 163);
+}
+
+.bg-REJECT-400 {
+  background-color: rgb(185 28 28);
+}
+
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));

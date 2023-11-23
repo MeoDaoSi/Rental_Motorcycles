@@ -27,20 +27,6 @@ class BaseController {
     //     }
     // }
     // [GET] - Method
-    getOne(Model){
-        return async (req, res) => {
-            const _id = req.params.id;
-            try {
-                const data = await Model.findById(_id);
-                if(!data){
-                    return res.status(400).json('error');
-                }
-                res.status(200).json(data);
-            } catch (error) {
-                res.status(500).json('error');
-            }
-        }
-    }
     // [PATCH] - Method
     edit(Model){
         return async (req, res) => {
