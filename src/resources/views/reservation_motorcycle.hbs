@@ -24,7 +24,7 @@
                     <form action="/reservation/motorcycles" method="post">
                         <input type="text" id="id" name="id" class="hidden" value="{{this._id}}">
                         <div class="flex flex-col justify-end">
-                            <div class="mr-3 mt-3 font-medium text-right">{{this.price_per_day}}₫/Ngày</div>
+                            <div class="mr-3 mt-3 font-medium text-right">{{VND_format this.price_per_day}}/Ngày</div>
                             <div class="mr-3 my-1 text-right">
                                 không bao gồm thuế và bảo hiểm
                             </div>

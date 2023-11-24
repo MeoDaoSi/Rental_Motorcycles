@@ -21,9 +21,11 @@ const rental_getOne = async (req, res) => {
         .populate(
             'info'
         )
+        .populate(
+            'motor'
+        )
         .exec();
-        // console.log(rental.motor);
-        console.log(rental.info);
+        console.log(rental);
         res.render('rental_detail', {
             rental
         })

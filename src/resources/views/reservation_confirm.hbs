@@ -23,7 +23,7 @@
                     <form action="/reservation/motorcycles" method="post">
                         <input type="text" id="id" name="id" class="hidden" value="{{motor._id}}">
                         <div class="flex flex-col justify-end">
-                            <div class="mr-3 mt-3 font-medium text-right">{{motor.price_per_day}}₫/Ngày</div>
+                            <div class="mr-3 mt-3 font-medium text-right">{{VND_format motor.price_per_day}}</div>
                             <div class="mr-3 my-1 text-right">
                                 không bao gồm thuế và bảo hiểm
                             </div>
@@ -41,7 +41,7 @@
                     <p class="mt-3 text-xl font-bold">Địa chỉ</p>
                     <p class="text-sm mt-1">{{infos.address}}</p>
                     <p class="mt-3 text-xl font-bold">Giới tính</p>
-                    <p class="text-sm mt-1">{{infos.gender}}</p>
+                    <p class="text-sm mt-1">{{gender infos.gender}}</p>
                 </div>
                 <div class="text-left w-1/2">
                     <p class="mt-3 text-xl font-bold text-left">Tên</p>
@@ -75,13 +75,13 @@
                 <div class="mx-4 mt-8 ">
                     <p class="mt-3 text-xl font-bold">Thông tin thuê xe</p>
                     <p class="text-sm mt-1">{{motor.name}}</p>
-                    <p class="text-sm mt-1">Giá: {{motor.price_per_day}}₫/Ngày</p>
+                    <p class="text-sm mt-1">Giá: {{VND_format motor.price_per_day}}/Ngày</p>
                 </div>
             </div>
             <div class="h-80 mx-4 my-4 border">
                 <div class="mx-4 mt-8 ">
                     <p class="mt-3 text-xl font-bold">Tổng cộng</p>
-                    <p class="text-xl mt-1 text-right">₫200.000</p>
+                    <p class="text-xl mt-1 text-right">{{VND_format total}}</p>
                 </div>
             </div>
         </div>

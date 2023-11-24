@@ -35,7 +35,6 @@ const infosSchema = new Schema({
     },
     gender: {
         type: String,
-        require: false,
         trim: true,
         enum: Object.values(genderEnum),
     },
@@ -47,6 +46,6 @@ const infosSchema = new Schema({
     timestamps: true
 })
 
-const Info = mongoose.model('infosSchema', infosSchema)
+const Info = mongoose.model('infos', infosSchema)
 
 module.exports = Info

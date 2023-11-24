@@ -52,12 +52,8 @@ router.get('/infos', async (req, res) => {
 })
 
 router.get('/confirm', async (req, res) => {
-    console.log(req.session.rental);
-    const motor = await Motorcycle.findById(req.session.rental.motor.id);
     res.render('reservation_confirm', {
-        schedule: req.session.rental?.schedule,
-        motor: motor,
-        infos: req.session.rental?.infos
+        ...req.session.rental
     })
 })
 
@@ -111,10 +107,8 @@ router.post('/motorcycles', async (req, res) => {
 })
 
 router.post('/rental', async (req, res) => {
-    console.log(req.session.rental);
     const { email, start_day, end_day, start_time, end_time, pickup_location, return_location } = req.session.rental.schedule;
     const id  = req.session.rental.motor._id;
-    console.log(id);
     const { last_name, address, first_name, phone, birth_date, note, gender } = req.session.rental.infos;
     try {
         const infos = new Info({
@@ -126,7 +120,6 @@ router.post('/rental', async (req, res) => {
             gender,
         })
         await infos.save();
-        console.log(infos._id);
         const rental = new Rental({
             rental_start_day: start_day,
             rental_end_day: end_day,

@@ -7,6 +7,9 @@ const duration = (start_date, end_date) => {
     const dateA = new Date(start_date);
     const dateB = new Date(end_date);
     const days = (dateB - dateA) / (1000 * 60 * 60 * 24);
+    if( days == 0 ){
+        return days + 1
+    }
     return days
 }
 

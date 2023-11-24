@@ -14,9 +14,9 @@
 
             <div class="bg-white p-4 rounded-md mt-4">
                 <div class="flex justify-between">
-                    <h2 class="text-gray-500 text-lg font-semibold pb-4">Thông tin hợp đồng thuê</h2>
+                    <h2 class="text-gray-500 text-lg font-semibold pb-4">Chi tiết hợp đồng</h2>
                     <div>
-                        <h2 class="text-gray-500 text-lg font-semibold pb-4 inline">Tổng số lượng hợp đồng: </h2>
+                        <h2 class="text-gray-500 text-lg font-semibold pb-4 inline">Tổng chi phí: </h2>
                         <h2 class="text-lg font-semibold pb-4 inline text-red-500 ">{{rental.length}}</h2>
                     </div>
                 </div>
@@ -24,31 +24,31 @@
                     <table class="w-full table-auto text-sm">
                         <thead>
                             <tr class="text-sm ">
-                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">STT</th>
-                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Nơi nhận xe</th>
-                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Nơi trả xe</th>
-                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Thời gian lập</th>
-                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">trạng thái</th>
-                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Chi Tiết</th>
+                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Tên người thuê</th>
+                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">SDT</th>
+                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Địa chỉ</th>
+                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Xe Thuê</th>
+                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Thời gian</th>
+                                <th class="text-left py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Vị trí thuê</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{#each rental}}
-                                <tr class="hover:bg-grey-lighter">
-                                    <td class="py-2 px-4 border-b border-grey-light">{{increment @index}}</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">{{this.pickup}}</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">{{this.return}}</td>
-                                    {{!-- <td class="py-2 px-4 border-b border-grey-light">{{formatDate this.createdAt}}</td> --}}
-                                    <td class="py-2 px-4 border-b border-grey-light">
-                                        <button type="button" class="bg-{{this.status}}-400 hover:bg-{{this.status}}-400 text-white font-semibold py-2 px-4 rounded">{{this.status}}</button>
-                                    </td>
-                                    <td class="py-2 px-4 border-b border-grey-light">
-                                        <a href="/admin/rental/{{this._id}}/">
-                                            <i class="fa-solid fa-info"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            {{/each}}
+                            <tr class="hover:bg-grey-lighter">
+                                <td class="py-2 px-4 border-b border-grey-light">{{rental.info.first_name}}</td>
+                                <td class="py-2 px-4 border-b border-grey-light">{{rental.info.phone}}</td>
+                                <td class="py-2 px-4 border-b border-grey-light">{{rental.info.address}}</td>
+                                <td class="py-2 px-4 border-b border-grey-light">{{rental.motor.name}}</td>
+                                <td class="py-2 px-4 border-b border-grey-light">{{rental.info.address}}</td>
+                                <td class="py-2 px-4 border-b border-grey-light">{{rental.info.address}}</td>
+                                <td class="py-2 px-4 border-b border-grey-light">
+                                    <button type="button" class="bg-{{this.status}}-400 hover:bg-{{this.status}}-400 text-white font-semibold py-2 px-4 rounded">{{this.status}}</button>
+                                </td>
+                                <td class="py-2 px-4 border-b border-grey-light">
+                                    <a href="/admin/rental/{{this._id}}/">
+                                        <i class="fa-solid fa-info"></i>
+                                    </a>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

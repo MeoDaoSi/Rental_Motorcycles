@@ -38,7 +38,7 @@ const rentalSchema = new Schema({
     },
     info: {
         type: Schema.ObjectId,
-        ref: 'infosschemas',
+        ref: 'infos',
         require: true
     },
     user: {

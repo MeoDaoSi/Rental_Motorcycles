@@ -28,7 +28,7 @@
                             {{#each location}}
                                 <tr class="hover:bg-grey-lighter">
                                     <td class="py-2 px-4 border-b border-grey-light">{{this.address}}</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">{{this.createdAt}}</td>
+                                    <td class="py-2 px-4 border-b border-grey-light">{{formatDate this.createdAt}}</td>
                                     <td class="py-2 px-4 border-b border-grey-light">
                                         <a href="/admin/location/{{this._id}}/motorcycle">
                                             <i class="fa-solid fa-info"></i>

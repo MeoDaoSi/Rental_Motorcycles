@@ -57,12 +57,22 @@ app.engine('.hbs', engine({
             return variable + 1;
         },
         formatDate(date) {
+            if(!date){
+                return "Undefine"
+            }
             const dateFormat = date.toLocaleDateString("en-US");
             return dateFormat
         },
         VND_format(cost) {
             total_cost = cost.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
             return total_cost
+        },
+        gender(value) {
+            if(value === "F"){
+                return "Female";
+            }else{
+                return "Male"
+            }
         }
     }
 }));
