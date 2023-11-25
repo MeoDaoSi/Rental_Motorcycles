@@ -5,6 +5,7 @@ const Motorcycle = require('../app/models/Motorcycle')
 const Rental = require('../app/models/Rental')
 const Info = require('../app/models/Info')
 const { VND_format, duration } = require('../helpers/index');
+const moment = require('moment');
 
 router.get('/schedule', async (req, res) => {
     try {
@@ -21,7 +22,10 @@ router.get('/motorcycle', async (req, res) => {
     const address  = req.session.rental?.schedule?.pickup_location;
     try {
         const location_id = await Location.findOne({address})
-        const motor = await Motorcycle.find({location: location_id});
+        const motor = await Motorcycle.find({
+            location: location_id,
+            status: "ACTIVE",
+        });
         res.render('reservation_motorcycle', {
             schedule: req.session.rental?.schedule,
             motor: motor
@@ -107,28 +111,32 @@ router.post('/motorcycles', async (req, res) => {
 })
 
 router.post('/rental', async (req, res) => {
-    const { email, start_day, end_day, start_time, end_time, pickup_location, return_location } = req.session.rental.schedule;
+    const { email, start_date, end_date, start_time, end_time, pickup_location, return_location } = req.session.rental.schedule;
     const id  = req.session.rental.motor._id;
     const { last_name, address, first_name, phone, birth_date, note, gender } = req.session.rental.infos;
+    const total = req.session.rental.total
     try {
         const infos = new Info({
             first_name,
             last_name,
             address,
             phone,
-            birth_date,
+            birthDate: birth_date,
             gender,
         })
         await infos.save();
         const rental = new Rental({
-            rental_start_day: start_day,
-            rental_end_day: end_day,
+            rental_start_date: start_date,
+            rental_end_date: end_date,
             pickup: pickup_location,
             return: return_location,
             note,
             motor: id,
             info: infos._id,
-
+            total
+        })
+        const motor = await Motorcycle.findByIdAndUpdate(id,{
+            status: "INACTIVE"
         })
         await rental.save();
         res.redirect('/')

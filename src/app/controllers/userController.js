@@ -5,14 +5,8 @@ const BaseController = require('./factories/index');
 const user_getAll = async (req, res) => {
     try {
         const users = await User.find();
-        const new_users = users.map((user) => {
-            const date = user.createdAt.toLocaleDateString();
-            user._doc.date = date
-            return user
-        })
-        console.log(new_users);
         return res.render('user',{
-            new_users
+            users
         });
     } catch (error) {
         res.redirect('/')

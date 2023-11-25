@@ -69,14 +69,22 @@ app.engine('.hbs', engine({
         },
         gender(value) {
             if(value === "F"){
-                return "Female";
+                return "Nữ";
             }else{
-                return "Male"
+                return "Nam"
             }
+        },
+        compare_status(status) {
+            if (status == 'REJECT' || status == 'CANCEL') {
+                return false
+            }
+            return true
         }
     }
 }));
 app.set('view engine', '.hbs');
+
+
 
 
 app.set('views', `${__dirname}/resources/views`);
@@ -88,6 +96,13 @@ app.use(router);
 app.use((req, res, next) => {
     return next(new AppError(404,'Resource not found'))
 })
+
+const dateString = '11/24/2023';
+
+// Parse the date string
+const parsedDate = moment('11/11/2023').format('DD-MM-YYYY');
+
+console.log(parsedDate);
 
 // [Call errorHandler]
 app.use(errorHandler);

@@ -1784,7 +1784,15 @@ input:checked + .toggle-bg {
   background-color: rgb(77 124 15);
 }
 
+.bg-ACTIVE-400	{
+  background-color: rgb(77 124 15);
+}
+
 .bg-CANCEL-400	{
+  background-color: rgb(163 163 163);
+}
+
+.bg-INACTIVE-400	{
   background-color: rgb(163 163 163);
 }
 

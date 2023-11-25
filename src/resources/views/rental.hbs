@@ -42,11 +42,17 @@
                                     <td class="py-2 px-4 border-b border-grey-light">
                                         <button type="button" class="bg-{{this.status}}-400 hover:bg-{{this.status}}-400 text-white font-semibold py-2 px-4 rounded">{{this.status}}</button>
                                     </td>
-                                    <td class="py-2 px-4 border-b border-grey-light">
-                                        <a href="/admin/rental/{{this._id}}">
-                                            <i class="fa-solid fa-info"></i>
-                                        </a>
-                                    </td>
+                                    {{#if (compare_status this.status) }}
+                                        <td class="py-2 px-4 border-b border-grey-light">
+                                            <a href="/admin/rental/{{this._id}}">
+                                                <i class="ml-4 fa-solid fa-info"></i>
+                                            </a>
+                                        </td>
+                                        {{else}}
+                                        <td class="py-2 px-4 border-b border-grey-light">
+                                            <i class="bg-REJECT-400 ml-4 fa-sharp fa-solid fa-xmark"></i>
+                                        </td>
+                                    {{/if}}
                                 </tr>
                             {{/each}}
                         </tbody>

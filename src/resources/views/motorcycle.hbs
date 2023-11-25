@@ -38,7 +38,9 @@
                                     <td class="py-2 px-4 border-b border-grey-light"><img src="/assets/img/moto-icon.jpg" alt="Foto Perfil" class="rounded-full h-10 w-10"></td>
                                     <td class="py-2 px-4 border-b border-grey-light">{{this.name}}</td>
                                     <td class="py-2 px-4 border-b border-grey-light">{{this.license_plate}}</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">{{this.status}}</td>
+                                    <td class="py-2 px-4 border-b border-grey-light">
+                                        <button type="button" class="bg-{{this.status}}-400 hover:bg-{{this.status}}-400 text-white font-semibold py-2 px-4 rounded">{{this.status}}</button>
+                                    </td>
                                     <td class="py-2 px-4 border-b border-grey-light">{{VND_format this.price_per_day}}</td>
                                     <td class="py-2 px-4 border-b border-grey-light"><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
                                 </tr>

@@ -13,7 +13,13 @@
             </div>
 
             <div class="bg-white p-4 rounded-md mt-4">
-                <h2 class="text-gray-500 text-lg font-semibold pb-4">Thông tin người dùng</h2>
+                <div class="flex justify-between">
+                    <h2 class="text-gray-500 text-lg font-semibold pb-4">Thông tin người dùng</h2>
+                    <div>
+                        <h2 class="text-gray-500 text-lg font-semibold pb-4 inline">Số lượng người dùng: </h2>
+                        <h2 class="text-lg font-semibold pb-4 inline text-red-500 ">{{users.length}}</h2>
+                    </div>
+                </div>
                 <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
                     <table class="w-full table-auto text-sm">
                         <thead>
@@ -26,12 +32,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{#each new_users}}
+                            {{#each users}}
                                 <tr class="hover:bg-grey-lighter">
                                     <td class="py-2 px-4 border-b border-grey-light"><img src="/assets/img/moto-icon.jpg" alt="Foto Perfil" class="rounded-full h-10 w-10"></td>
                                     <td class="py-2 px-4 border-b border-grey-light">{{this.email}}</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">{{this.status}}</td>
-                                    <td class="py-2 px-4 border-b border-grey-light">{{this._doc.date}}</td>
+                                    <td class="py-2 px-4 border-b border-grey-light">
+                                        <button type="button" class="bg-{{this.status}}-400 hover:bg-{{this.status}}-400 text-white font-semibold py-2 px-4 rounded">{{this.status}}</button>
+                                    </td>
+                                    <td class="py-2 px-4 border-b border-grey-light">{{formatDate this.createdAt}}</td>
                                     <td class="py-2 px-4 border-b border-grey-light"><a href=""><i class="fa-solid fa-pen-to-square"></i></a></td>
                                 </tr>
                             {{/each}}

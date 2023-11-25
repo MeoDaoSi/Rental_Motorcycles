@@ -3,12 +3,12 @@ const { Schema } = mongoose;
 const { rental_status_enum } = require('../../enums/rental');
 
 const rentalSchema = new Schema({
-    rental_start_day: {
+    rental_start_date: {
         type: Date,
         require: true,
         trim: true,
     },
-    rental_end_day: {
+    rental_end_date: {
         type: Date,
         require: true,
         trim: true,
@@ -45,6 +45,9 @@ const rentalSchema = new Schema({
         type: Schema.ObjectId,
         ref: 'users',
     },
+    total: {
+        type: Number
+    }
 }, {
     timestamps: true
 })
